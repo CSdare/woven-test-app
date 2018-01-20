@@ -1,4 +1,5 @@
 import woven from 'woven-js/client'; // need to add npm module
+import functions from './woven_functions/functions'
 
 woven.connect();
 
