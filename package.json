@@ -1,0 +1,30 @@
+{
+  "name": "woven-test-app",
+  "version": "1.0.0",
+  "description": "for testing only",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSdare/woven-test-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CSdare/woven-test-app/issues"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "webpack": "^3.10.0",
+    "woven-js": "^0.2.3"
+  },
+  "homepage": "https://github.com/CSdare/woven-test-app#readme"
+}
