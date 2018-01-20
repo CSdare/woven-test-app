@@ -6,9 +6,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: "bundle.js",
   },
-  resolveLoader: {
-    modules: [ 'node_modules', path.resolve(__dirname, '../woven-loader') ],
-  },
   module: {
     rules: [
       {
@@ -19,7 +16,15 @@ module.exports = {
       {
         test: /\.js$/,
         include: [ path.resolve(__dirname, 'woven_functions') ],
-        loader: [ 'babel-loader', 'woven-loader' ],
+        loader: 
+        [ 
+          {
+             loader: 'worker-loader', 
+             options: { name: 'woven-worker.js', inline: true }, 
+          },
+          { loader: 'babel-loader' },
+          { loader: 'woven-loader' },
+        ],
       },
     ],
   },

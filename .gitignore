@@ -1,7 +1,7 @@
 node_modules
 .vscode
 .env
-build/*.js
-build/*.svg
+dist/*.js
+dist/*.svg
 .DS_Store
 package-lock
