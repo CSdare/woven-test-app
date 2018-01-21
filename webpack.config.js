@@ -13,19 +13,19 @@ module.exports = {
         exclude: [ path.resolve(__dirname, 'woven_functions') ],
         loader: [ 'babel-loader' ],
       },
-      {
-        test: /\.js$/,
-        include: [ path.resolve(__dirname, 'woven_functions') ],
-        loader: 
-        [ 
-          {
-             loader: 'worker-loader', 
-             options: { name: 'woven-worker.js', inline: true }, 
-          },
-          { loader: 'babel-loader' },
-          { loader: 'woven-loader' },
-        ],
-      },
+      // {
+      //   test: /\.js$/,
+      //   include: [ path.resolve(__dirname, 'woven_functions') ],
+      //   loader: 
+      //   [ 
+      //     {
+      //        loader: 'worker-loader', 
+      //        options: { name: 'woven-worker.js', inline: true }, 
+      //     },
+      //     { loader: 'babel-loader' },
+      //     { loader: 'woven-loader' },
+      //   ],
+      // },
     ],
   },
 }

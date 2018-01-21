@@ -9,7 +9,7 @@ const functions = require('./woven_functions/functions');
 app.use(bodyParser.json());
 // how can we incorporate bodyParser into our woven.optimize middleware?
 
-woven.configure(functions, { alwaysServer: true });
+woven.configure(functions, { alwaysClient: true });
 
 app.use(woven.optimize);
 
