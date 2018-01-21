@@ -1,7 +1,9 @@
 import woven from 'woven-js/client'; // need to add npm module
-import functions from './woven_functions/functions'
+// import functions from './woven_functions/functions'
+import wovenWorker from 'worker-loader?inline=true&name=woven-worker.js!babel-loader!woven-Loader!./woven_functions/functions.js';
+// import wovenWorker from 'woven-loader!./woven_functions/functions.js'
 
-woven.connect();
+woven.connect(wovenWorker);
 
 window.onload = function() {
   // Add 10 functionality
@@ -10,7 +12,7 @@ window.onload = function() {
   add10Button.onclick = function() {
     numbers.forEach(node => {
       let num = Number(node.innerHTML);
-      woven.run('addTen', num)
+      woven.run('addTen', num)  
         .then(newNum => node.innerHTML = newNum);
     });
   }
