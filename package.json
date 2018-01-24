@@ -20,7 +20,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "woven-js": "^0.2.5"
+    "woven-js": "^0.3.2"
   },
   "homepage": "https://github.com/CSdare/woven-test-app#readme",
   "devDependencies": {
@@ -29,6 +29,6 @@
     "babel-preset-env": "^1.6.1",
     "webpack": "^3.10.0",
     "worker-loader": "^1.1.0",
-    "woven-loader": "^1.0.1"
+    "woven-loader": "^1.0.2"
   }
 }

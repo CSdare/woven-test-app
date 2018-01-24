@@ -9,15 +9,19 @@ const colorDistance = (scale, dest, src) => {
 };
 
 const processSepia = (binaryData, l) => {
+  const newData = new Uint8ClampedArray(l)
   for (let i = 0; i < l; i += 4) {
       const r = binaryData[i];
       const g = binaryData[i + 1];
       const b = binaryData[i + 2];
+      const a = binaryData[i + 3];
 
-      binaryData[i] = colorDistance(noise(), (r * 0.393) + (g * 0.769) + (b * 0.189), r);
-      binaryData[i + 1] = colorDistance(noise(), (r * 0.349) + (g * 0.686) + (b * 0.168), g);
-      binaryData[i + 2] = colorDistance(noise(), (r * 0.272) + (g * 0.534) + (b * 0.131), b);
+      newData[i] = colorDistance(noise(), (r * 0.393) + (g * 0.769) + (b * 0.189), r);
+      newData[i + 1] = colorDistance(noise(), (r * 0.349) + (g * 0.686) + (b * 0.168), g);
+      newData[i + 2] = colorDistance(noise(), (r * 0.272) + (g * 0.534) + (b * 0.131), b);
+      newData[i + 3] = a;
   }
+  return newData;
 };
 
 const addTen = (num) => {
