@@ -1,11 +1,11 @@
-import woven from 'woven-js/client'; // need to add npm module
-// import functions from './woven_functions/functions'
+import Woven from 'woven-js/client';
 import wovenWorker from 'worker-loader?inline=true&name=woven-worker.js!babel-loader!woven-Loader!./woven_functions/functions.js';
-// import wovenWorker from 'woven-loader!./woven_functions/functions.js'
 
+const woven = new Woven();
 woven.connect(wovenWorker);
 
 window.onload = function() {
+
   // Add 10 functionality
   const add10Button = document.getElementById('add-10-btn');
   const numbers = Array.from(document.getElementsByClassName('number'));
@@ -17,25 +17,49 @@ window.onload = function() {
     });
   }
 
+
   // Fib functionality
-  function calcFib(num) {
+  function wovenCalcFib(num) {
     woven.run('nthFib', num)
       .then((fib) => {
         const li = document.createElement('li');
-        li.textContent = fib;
-        fibList.appendChild(li);
+        li.textContent = num + ' = ' + fib;
+        wovenFibList.appendChild(li);
       });
   }
 
-  const fibList = document.getElementById('fib-list');
-  const fibNumber = document.getElementById('fib-number');
-  const fibButton = document.getElementById('calc-fib');
+  function browserCalcFib(num) {
+    function nthFib(num) {
+      if (num === 0) return 0;
+      if (num === 1) return 1;
+      return nthFib(num - 1) + nthFib(num - 2);
+    }
+    const fibNumber = nthFib(num);
+    const li = document.createElement('li');
+    li.textContent = num + ' = ' + fibNumber;
+    browserFibList.appendChild(li);
+  }
 
-  fibButton.addEventListener('click', () => calcFib(fibNumber.value || 8));
+  const wovenFibList = document.getElementById('woven-fib-list');
+  const wovenFibNumber = document.getElementById('woven-fib-number');
+  const wovenFibButton = document.getElementById('woven-calc-fib');
+
+  const browserFibList = document.getElementById('browser-fib-list');
+  const browserFibNumber = document.getElementById('browser-fib-number');
+  const browserFibButton = document.getElementById('browser-calc-fib');
+
+  wovenFibButton.addEventListener('click', () => wovenCalcFib(wovenFibNumber.value || 8));
+  browserFibButton.addEventListener('click', () => browserCalcFib(browserFibNumber.value || 8));
+
+
+  // Color box functionality
+  function getColor(e) {
+    woven.run('generateRandomColor')
+      .then(color => {
+        e.target.style.backgroundColor = `rgb(${color.red},${color.green},${color.blue})`;
+      });
+  }
+
+  const colorBoxes = Array.from(document.getElementsByClassName('color-box'));
+  colorBoxes.forEach(colorBox => colorBox.addEventListener('click', getColor));
 }
-
-
-// setTimeout(woven.run('addTen', 20).then(output => console.log('output from run function is ', output)), 1000);
-
-// woven.run('addTen', 30)
-//   .then(output => console.log('output from run function is ', output));
