@@ -13,6 +13,7 @@ woven.configure(functions, { alwaysClient: true });
 
 app.use(woven.optimize);
 
+app.use(express.static(path.join(__dirname, '/')));
 app.use(express.static(path.join(__dirname, '/dist/')));
 
 app.listen(3000);
