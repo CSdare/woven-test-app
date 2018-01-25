@@ -1,0 +1,31 @@
+body {
+  background-color: #fcfcfc;
+  font-family: sans-serif;
+}
+
+h3 {
+  margin: 5px 0;
+}
+
+#add-10-container,
+.fib-container {
+  border: 1px black solid;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+#browser-fib-container {
+  background-color: lightcoral;
+}
+
+#woven-fib-container {
+  background-color: lightgreen;
+}
+
+.color-box {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  transition: all 1s ease-out;
+}
