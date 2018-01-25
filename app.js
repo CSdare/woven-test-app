@@ -1,5 +1,6 @@
 import Woven from 'woven-js/client';
 import wovenWorker from 'worker-loader?inline=true&name=woven-worker.js!babel-loader!woven-Loader!./woven_functions/functions.js';
+import browserGenerateRandomColor from './browser_functions/functions'
 
 const woven = new Woven();
 woven.connect(wovenWorker);
@@ -52,12 +53,18 @@ window.onload = function() {
   browserFibButton.addEventListener('click', () => browserCalcFib(browserFibNumber.value || 8));
 
 
-  // Color box functionality
+  //--- Woven color box functionality ----------------------------//
+  // function getColor(e) {
+  //   woven.run('generateRandomColor')
+  //     .then(color => {
+  //       e.target.style.backgroundColor = `rgb(${color.red},${color.green},${color.blue})`;
+  //     });
+  // }
+
+  //--- Browser color box functionality --------------------------//
   function getColor(e) {
-    woven.run('generateRandomColor')
-      .then(color => {
-        e.target.style.backgroundColor = `rgb(${color.red},${color.green},${color.blue})`;
-      });
+    const color = browserGenerateRandomColor();
+    e.target.style.backgroundColor = `rgb(${color.red},${color.green},${color.blue})`;
   }
 
   const colorBoxes = Array.from(document.getElementsByClassName('color-box'));
