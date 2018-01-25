@@ -4,4 +4,4 @@ node_modules
 dist/*.js
 dist/*.svg
 .DS_Store
-package-lock
+package-lock.json
