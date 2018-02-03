@@ -1,5 +1,5 @@
 body {
-  background-color: #fcfcfc;
+  background-color: #aaeeff;
   font-family: sans-serif;
 }
 
@@ -23,9 +23,11 @@ h3 {
 }
 
 .color-box {
+  background-color: white;
   display: inline-block;
   width: 200px;
   height: 200px;
   border: 1px solid black;
+  border-radius: 50%;
   transition: all 1s ease-out;
 }

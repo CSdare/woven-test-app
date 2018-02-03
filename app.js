@@ -8,15 +8,15 @@ woven.connect(wovenWorker);
 window.onload = function() {
 
   // Add 10 functionality
-  const add10Button = document.getElementById('add-10-btn');
-  const numbers = Array.from(document.getElementsByClassName('number'));
-  add10Button.onclick = function() {
-    numbers.forEach(node => {
-      let num = Number(node.innerHTML);
-      woven.run('addTen', num)  
-        .then(newNum => node.innerHTML = newNum);
-    });
-  }
+  // const add10Button = document.getElementById('add-10-btn');
+  // const numbers = Array.from(document.getElementsByClassName('number'));
+  // add10Button.onclick = function() {
+  //   numbers.forEach(node => {
+  //     let num = Number(node.innerHTML);
+  //     woven.run('addTen', num)  
+  //       .then(newNum => node.innerHTML = newNum);
+  //   });
+  // }
 
 
   // Fib functionality
@@ -29,17 +29,31 @@ window.onload = function() {
       });
   }
 
+  function nthFib(num) {
+    if (num === 0) return 0;
+    if (num === 1) return 1;
+    return nthFib(num - 1) + nthFib(num - 2);
+  }
+
   function browserCalcFib(num) {
-    function nthFib(num) {
-      if (num === 0) return 0;
-      if (num === 1) return 1;
-      return nthFib(num - 1) + nthFib(num - 2);
-    }
     const fibNumber = nthFib(num);
     const li = document.createElement('li');
     li.textContent = num + ' = ' + fibNumber;
     browserFibList.appendChild(li);
   }
+
+  function asyncCalcFib(num) {
+    const fibPromise = new Promise((resolve, reject) => {
+      resolve(nthFib(num));
+    });
+    fibPromise.then((fib) => {
+      const li = document.createElement('li');
+      li.textContent = num + ' = ' + fib;
+      browserFibList.appendChild(li);
+    });
+  }
+
+
 
   const wovenFibList = document.getElementById('woven-fib-list');
   const wovenFibNumber = document.getElementById('woven-fib-number');
@@ -50,7 +64,7 @@ window.onload = function() {
   const browserFibButton = document.getElementById('browser-calc-fib');
 
   wovenFibButton.addEventListener('click', () => wovenCalcFib(wovenFibNumber.value || 8));
-  browserFibButton.addEventListener('click', () => browserCalcFib(browserFibNumber.value || 8));
+  browserFibButton.addEventListener('click', () => asyncCalcFib(browserFibNumber.value || 8));
 
 
   //--- Woven color box functionality ----------------------------//
