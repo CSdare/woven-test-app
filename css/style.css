@@ -1,6 +1,12 @@
 body {
-  background-color: #fcfcfc;
+  background: url('../img/pool.jpg');
   font-family: sans-serif;
+}
+
+body>h1,
+body>h3 {
+  color: white;
+  text-shadow: 2px 2px rgba(0,0,0,0.3);
 }
 
 h3 {
@@ -23,9 +29,11 @@ h3 {
 }
 
 .color-box {
+  background-color: white;
   display: inline-block;
   width: 200px;
   height: 200px;
   border: 1px solid black;
+  border-radius: 50%;
   transition: all 1s ease-out;
 }

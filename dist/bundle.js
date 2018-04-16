@@ -167,16 +167,16 @@ woven.connect(_functions2.default);
 window.onload = function () {
 
   // Add 10 functionality
-  var add10Button = document.getElementById('add-10-btn');
-  var numbers = Array.from(document.getElementsByClassName('number'));
-  add10Button.onclick = function () {
-    numbers.forEach(function (node) {
-      var num = Number(node.innerHTML);
-      woven.run('addTen', num).then(function (newNum) {
-        return node.innerHTML = newNum;
-      });
-    });
-  };
+  // const add10Button = document.getElementById('add-10-btn');
+  // const numbers = Array.from(document.getElementsByClassName('number'));
+  // add10Button.onclick = function() {
+  //   numbers.forEach(node => {
+  //     let num = Number(node.innerHTML);
+  //     woven.run('addTen', num)  
+  //       .then(newNum => node.innerHTML = newNum);
+  //   });
+  // }
+
 
   // Fib functionality
   function wovenCalcFib(num) {
@@ -187,16 +187,28 @@ window.onload = function () {
     });
   }
 
+  function nthFib(num) {
+    if (num === 0) return 0;
+    if (num === 1) return 1;
+    return nthFib(num - 1) + nthFib(num - 2);
+  }
+
   function browserCalcFib(num) {
-    function nthFib(num) {
-      if (num === 0) return 0;
-      if (num === 1) return 1;
-      return nthFib(num - 1) + nthFib(num - 2);
-    }
     var fibNumber = nthFib(num);
     var li = document.createElement('li');
     li.textContent = num + ' = ' + fibNumber;
     browserFibList.appendChild(li);
+  }
+
+  function asyncCalcFib(num) {
+    var fibPromise = new Promise(function (resolve, reject) {
+      resolve(nthFib(num));
+    });
+    fibPromise.then(function (fib) {
+      var li = document.createElement('li');
+      li.textContent = num + ' = ' + fib;
+      browserFibList.appendChild(li);
+    });
   }
 
   var wovenFibList = document.getElementById('woven-fib-list');
@@ -211,7 +223,7 @@ window.onload = function () {
     return wovenCalcFib(wovenFibNumber.value || 8);
   });
   browserFibButton.addEventListener('click', function () {
-    return browserCalcFib(browserFibNumber.value || 8);
+    return asyncCalcFib(browserFibNumber.value || 8);
   });
 
   //--- Woven color box functionality ----------------------------//
@@ -496,7 +508,7 @@ module.exports = function runWrapper(optimal, WorkerTask) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function() {
-  return __webpack_require__(10)("/******/ (function(modules) { // webpackBootstrap\n/******/ \t// The module cache\n/******/ \tvar installedModules = {};\n/******/\n/******/ \t// The require function\n/******/ \tfunction __webpack_require__(moduleId) {\n/******/\n/******/ \t\t// Check if module is in cache\n/******/ \t\tif(installedModules[moduleId]) {\n/******/ \t\t\treturn installedModules[moduleId].exports;\n/******/ \t\t}\n/******/ \t\t// Create a new module (and put it into the cache)\n/******/ \t\tvar module = installedModules[moduleId] = {\n/******/ \t\t\ti: moduleId,\n/******/ \t\t\tl: false,\n/******/ \t\t\texports: {}\n/******/ \t\t};\n/******/\n/******/ \t\t// Execute the module function\n/******/ \t\tmodules[moduleId].call(module.exports, module, module.exports, __webpack_require__);\n/******/\n/******/ \t\t// Flag the module as loaded\n/******/ \t\tmodule.l = true;\n/******/\n/******/ \t\t// Return the exports of the module\n/******/ \t\treturn module.exports;\n/******/ \t}\n/******/\n/******/\n/******/ \t// expose the modules object (__webpack_modules__)\n/******/ \t__webpack_require__.m = modules;\n/******/\n/******/ \t// expose the module cache\n/******/ \t__webpack_require__.c = installedModules;\n/******/\n/******/ \t// define getter function for harmony exports\n/******/ \t__webpack_require__.d = function(exports, name, getter) {\n/******/ \t\tif(!__webpack_require__.o(exports, name)) {\n/******/ \t\t\tObject.defineProperty(exports, name, {\n/******/ \t\t\t\tconfigurable: false,\n/******/ \t\t\t\tenumerable: true,\n/******/ \t\t\t\tget: getter\n/******/ \t\t\t});\n/******/ \t\t}\n/******/ \t};\n/******/\n/******/ \t// getDefaultExport function for compatibility with non-harmony modules\n/******/ \t__webpack_require__.n = function(module) {\n/******/ \t\tvar getter = module && module.__esModule ?\n/******/ \t\t\tfunction getDefault() { return module['default']; } :\n/******/ \t\t\tfunction getModuleExports() { return module; };\n/******/ \t\t__webpack_require__.d(getter, 'a', getter);\n/******/ \t\treturn getter;\n/******/ \t};\n/******/\n/******/ \t// Object.prototype.hasOwnProperty.call\n/******/ \t__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };\n/******/\n/******/ \t// __webpack_public_path__\n/******/ \t__webpack_require__.p = \"\";\n/******/\n/******/ \t// Load entry module and return exports\n/******/ \treturn __webpack_require__(__webpack_require__.s = 0);\n/******/ })\n/************************************************************************/\n/******/ ([\n/* 0 */\n/***/ (function(module, exports, __webpack_require__) {\n\n\"use strict\";\n\n\nfunction _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }\n\nonmessage = function onmessage(e) {\n  var addTen = function addTen(num) {\n    return num + 10;\n  };\n\n  var nthFib = function nthFib(num) {\n    if (num === 0) return 0;\n    if (num === 1) return 1;\n    return nthFib(num - 1) + nthFib(num - 2);\n  };\n\n  var funcHash = { addTen: addTen, nthFib: nthFib };\n  var output = funcHash[e.data.funcName].apply(funcHash, _toConsumableArray(e.data.payload));\n  postMessage(output);\n};\n\n/***/ })\n/******/ ]);", __webpack_require__.p + "woven-worker.js");
+  return __webpack_require__(10)("/******/ (function(modules) { // webpackBootstrap\n/******/ \t// The module cache\n/******/ \tvar installedModules = {};\n/******/\n/******/ \t// The require function\n/******/ \tfunction __webpack_require__(moduleId) {\n/******/\n/******/ \t\t// Check if module is in cache\n/******/ \t\tif(installedModules[moduleId]) {\n/******/ \t\t\treturn installedModules[moduleId].exports;\n/******/ \t\t}\n/******/ \t\t// Create a new module (and put it into the cache)\n/******/ \t\tvar module = installedModules[moduleId] = {\n/******/ \t\t\ti: moduleId,\n/******/ \t\t\tl: false,\n/******/ \t\t\texports: {}\n/******/ \t\t};\n/******/\n/******/ \t\t// Execute the module function\n/******/ \t\tmodules[moduleId].call(module.exports, module, module.exports, __webpack_require__);\n/******/\n/******/ \t\t// Flag the module as loaded\n/******/ \t\tmodule.l = true;\n/******/\n/******/ \t\t// Return the exports of the module\n/******/ \t\treturn module.exports;\n/******/ \t}\n/******/\n/******/\n/******/ \t// expose the modules object (__webpack_modules__)\n/******/ \t__webpack_require__.m = modules;\n/******/\n/******/ \t// expose the module cache\n/******/ \t__webpack_require__.c = installedModules;\n/******/\n/******/ \t// define getter function for harmony exports\n/******/ \t__webpack_require__.d = function(exports, name, getter) {\n/******/ \t\tif(!__webpack_require__.o(exports, name)) {\n/******/ \t\t\tObject.defineProperty(exports, name, {\n/******/ \t\t\t\tconfigurable: false,\n/******/ \t\t\t\tenumerable: true,\n/******/ \t\t\t\tget: getter\n/******/ \t\t\t});\n/******/ \t\t}\n/******/ \t};\n/******/\n/******/ \t// getDefaultExport function for compatibility with non-harmony modules\n/******/ \t__webpack_require__.n = function(module) {\n/******/ \t\tvar getter = module && module.__esModule ?\n/******/ \t\t\tfunction getDefault() { return module['default']; } :\n/******/ \t\t\tfunction getModuleExports() { return module; };\n/******/ \t\t__webpack_require__.d(getter, 'a', getter);\n/******/ \t\treturn getter;\n/******/ \t};\n/******/\n/******/ \t// Object.prototype.hasOwnProperty.call\n/******/ \t__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };\n/******/\n/******/ \t// __webpack_public_path__\n/******/ \t__webpack_require__.p = \"\";\n/******/\n/******/ \t// Load entry module and return exports\n/******/ \treturn __webpack_require__(__webpack_require__.s = 0);\n/******/ })\n/************************************************************************/\n/******/ ([\n/* 0 */\n/***/ (function(module, exports, __webpack_require__) {\n\n\"use strict\";\n\n\nfunction _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }\n\nonmessage = function onmessage(e) {\n  var addTen = function addTen(num) {\n    return num + 10;\n  };\n\n  var nthFib = function nthFib(num) {\n    if (num === 0) return 0;\n    if (num === 1) return 1;\n    return nthFib(num - 1) + nthFib(num - 2);\n  };\n\n  var generateRandomColor = function generateRandomColor() {\n    var red = Math.floor(Math.random() * 256);\n    var green = Math.floor(Math.random() * 256);\n    var blue = Math.floor(Math.random() * 256);\n\n    return { red: red, green: green, blue: blue };\n  };\n\n  var funcHash = { addTen: addTen, nthFib: nthFib };\n  var output = funcHash[e.data.funcName].apply(funcHash, _toConsumableArray(e.data.payload));\n  postMessage(output);\n};\n\n/***/ })\n/******/ ]);", __webpack_require__.p + "woven-worker.js");
 };
 
 /***/ }),
