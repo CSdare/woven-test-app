@@ -21,7 +21,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "woven-js": "^0.3.12"
+    "woven-js": "^0.4.1"
   },
   "homepage": "https://github.com/CSdare/woven-test-app#readme",
   "devDependencies": {
